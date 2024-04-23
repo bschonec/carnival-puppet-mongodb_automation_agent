@@ -1,45 +1,47 @@
-#
+# This file is managed by Puppet.
+# Do not edit!
+
 # REQUIRED
 # Enter your Group ID - It can be found at https://cloud.mongodb.com/settings/group
 #
-mmsGroupId=<%= @agent_config_mmsgroupid %>
+mmsGroupId=<%= @group_id %>
 
 #
 # REQUIRED
 # Enter your API key - It can be found at https://cloud.mongodb.com/settings/group
 #
-mmsApiKey=<%= @agent_config_mmsapikey %>
+mmsApiKey=<%= @api_key %>
 
 
 #
 # Base url of the MMS web server.
 #
-mmsBaseUrl=https://api-agents.mongodb.com
+mmsBaseUrl=<%= @base_url %>
 
 #
 # Path to log file
 #
-logFile=/var/log/mongodb-mms-automation/automation-agent.log
+logFile=<%= @log_file %>
 
 #
 # Path to backup cluster config to
 #
-mmsConfigBackup=/var/lib/mongodb-mms-automation/mms-cluster-config-backup.json
+mmsConfigBackup=<%= @config_backup %>
 
 #
 # Lowest log level to log.  Can be (in order): DEBUG, ROUTINE, INFO, WARN, ERROR, DOOM
 #
-logLevel=INFO
+logLevel=<%= @log_level %>
 
 #
 # Maximum number of rotated log files
 #
-maxLogFiles=10
+maxLogFiles=<%= @max_log_files %>
 
 #
 # Maximum size in bytes of a log file (before rotating)
 #
-maxLogFileSize=268435456
+maxLogFileSize=<%= @max_log_file_size %>
 
 #
 # URL to proxy all HTTP requests through
