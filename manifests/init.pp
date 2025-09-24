@@ -15,8 +15,10 @@ class mongodb_automation_agent (
   Integer $max_log_file_size = 268435456,
 ) {
 
+  # Typically, the package isn't signed so we need to stop the GPG check.
   package { $package_name:
-    ensure => $package_ensure,
+    ensure          => $package_ensure,
+    install_options => '--nogpgcheck',
   }
 
   # Generate the configuration file
