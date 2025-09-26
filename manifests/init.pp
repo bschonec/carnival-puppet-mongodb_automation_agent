@@ -32,4 +32,10 @@ class mongodb_automation_agent (
     require => Package[$package_name],
   }
 
+  # Ensure service is running
+  service { 'mongodb-mms-automation-agent':
+    ensure  => 'running',
+    enable  => true,
+    require => File['mongo_agent_config'],
+  }
 }
