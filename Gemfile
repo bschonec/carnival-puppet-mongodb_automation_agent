@@ -1,7 +1,28 @@
-source 'https://rubygems.org'
+# Managed by modulesync - DO NOT EDIT
+# https://voxpupuli.org/docs/updating-files-managed-with-modulesync/
 
-puppetversion = ENV.key?('PUPPET_VERSION') ? "#{ENV['PUPPET_VERSION']}" : ['>= 3.3']
-gem 'puppet', puppetversion
-gem 'puppetlabs_spec_helper', '>= 0.8.2'
-gem 'puppet-lint', '>= 1.0.0'
-gem 'facter', '>= 1.7.0'
+source ENV['GEM_SOURCE'] || 'https://rubygems.org'
+
+group :test do
+  gem 'voxpupuli-test', '~> 13.0',  :require => false
+  gem 'puppet_metadata', '~> 6.0',  :require => false
+end
+
+group :development do
+  gem 'guard-rake',               :require => false
+  gem 'overcommit', '>= 0.39.1',  :require => false
+end
+
+group :system_tests do
+  gem 'voxpupuli-acceptance', '~> 4.0',  :require => false
+end
+
+group :release do
+  gem 'voxpupuli-release', '~> 5.0',  :require => false
+end
+
+gem 'rake', :require => false
+
+gem 'openvox', ENV.fetch('OPENVOX_GEM_VERSION', [">= 7", "< 9"]), :require => false, :groups => [:test]
+
+# vim: syntax=ruby
