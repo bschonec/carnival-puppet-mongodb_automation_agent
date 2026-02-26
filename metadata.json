@@ -1,13 +1,10 @@
 {
-  "name": "carnival-mongodb_automation_agent",
+  "name": "control-repo",
   "version": "0.1.0",
-  "author": "Carnival Mobile",
-  "summary": "Installs the MongoDB Cloud Manager automation agent",
+  "author": "Brian Schonecker",
+  "summary": "Control repository for building all of the Puppet module dependencies.",
   "license": "Apache-2.0",
-  "source": "https://github.com/carnivalmobile/carnival-puppet-mongodb_automation_agent",
-  "project_page": "https://github.com/carnivalmobile/carnival-puppet-mongodb_automation_agent",
-  "issues_url": "https://github.com/carnivalmobile/carnival-puppet-mongodb_automation_agent/issues",
-
+  "source": "https://nfiv-schon-02d.nfii.com/SchoneckerB/control-repo.git",
   "dependencies": [
 
   ],
@@ -29,6 +26,5 @@
   ],
   "pdk-version": "2.6.1",
   "template-url": "pdk-default#2.7.1",
-  "template-ref": "tags/2.7.1-0-g9a16c87",
-  "data_provider": null
+  "template-ref": "tags/2.7.1-0-g9a16c87"
 }
