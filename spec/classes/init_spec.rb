@@ -32,8 +32,8 @@ describe 'mongodb_automation_agent', type: :class do
           is_expected.to contain_file('gen_key').with(
             ensure: 'file',
             path: '/etc/mongodb-mms/gen.key',
-            owner: 'mongod',
-            group: 'mongod',
+            owner: 'mongodb-mms',
+            group: 'mongodb-mms',
             mode: '0400'
           )
 

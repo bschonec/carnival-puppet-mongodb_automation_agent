@@ -13,6 +13,9 @@
 #   Something longer to fool the linter.
 # @param api_key
 #   Something longer to fool the linter.
+# @param gen_key_config_owner
+#   Something longer to fool the linter.
+# @param gen_key_config_group
 # @param config_owner
 #   Something longer to fool the linter.
 # @param config_group
@@ -44,6 +47,8 @@ class mongodb_automation_agent (
   String $package_name = 'mongodb-mms-automation-agent-manager',
   String $config_owner = 'mongod',
   String $config_group = 'mongod',
+  String $gen_key_config_owner = 'mongodb-mms',
+  String $gen_key_config_group = 'mongodb-mms',
   Stdlib::Filemode $config_mode = '0600',
   Stdlib::Httpurl $base_url = 'https://api-agents.mongodb.com',
   Stdlib::Absolutepath $log_file = '/var/log/mongodb-mms-automation/automation-agent.log',
@@ -72,7 +77,7 @@ class mongodb_automation_agent (
     require => Package[$package_name],
   }
 
-  # If we don't specify $genkey_file_content then ensure the file properties
+  # If we don't specify $genkey_file_content then ensure the file's properties
   # but don't manage its contents.
   $file_content = $genkey_file_content ? {
     undef   => undef,
@@ -83,8 +88,8 @@ class mongodb_automation_agent (
   file { 'gen_key':
     ensure  => 'file',
     path    => "${mongodb_mms_home}/gen.key",
-    owner   => $config_owner,
-    group   => $config_group,
+    owner   => $gen_key_config_owner,
+    group   => $gen_key_config_group,
     mode    => '0400',
     content => $file_content,
     # notify service mongodb?
