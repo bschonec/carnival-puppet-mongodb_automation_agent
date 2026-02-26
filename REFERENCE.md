@@ -6,21 +6,30 @@
 
 ### Classes
 
-* [`mongodb_automation_agent`](#mongodb_automation_agent)
+* [`mongodb_automation_agent`](#mongodb_automation_agent): Installs the MongoDB automation agent.
+Generates the configuration and ensures the service is running.
 
 ## Classes
 
 ### <a name="mongodb_automation_agent"></a>`mongodb_automation_agent`
 
-The mongodb_automation_agent class.
+== Class: mongodb_automation_agent
+
+#### Examples
+
+##### 
+
+```puppet
+include mongodb_automation_agent
+```
 
 #### Parameters
 
 The following parameters are available in the `mongodb_automation_agent` class:
 
+* [`package_name`](#-mongodb_automation_agent--package_name)
 * [`group_id`](#-mongodb_automation_agent--group_id)
 * [`api_key`](#-mongodb_automation_agent--api_key)
-* [`package_name`](#-mongodb_automation_agent--package_name)
 * [`config_owner`](#-mongodb_automation_agent--config_owner)
 * [`config_group`](#-mongodb_automation_agent--config_group)
 * [`config_mode`](#-mongodb_automation_agent--config_mode)
@@ -31,32 +40,34 @@ The following parameters are available in the `mongodb_automation_agent` class:
 * [`max_log_files`](#-mongodb_automation_agent--max_log_files)
 * [`max_log_file_size`](#-mongodb_automation_agent--max_log_file_size)
 * [`package_ensure`](#-mongodb_automation_agent--package_ensure)
-
-##### <a name="-mongodb_automation_agent--group_id"></a>`group_id`
-
-Data type: `String`
-
-
-
-##### <a name="-mongodb_automation_agent--api_key"></a>`api_key`
-
-Data type: `String`
-
-
+* [`genkey_file_contents`](#-mongodb_automation_agent--genkey_file_contents)
+* [`mongodb_mms_home`](#-mongodb_automation_agent--mongodb_mms_home)
 
 ##### <a name="-mongodb_automation_agent--package_name"></a>`package_name`
 
 Data type: `String`
 
-
+Something longer to fool the linter.
 
 Default value: `'mongodb-mms-automation-agent-manager'`
+
+##### <a name="-mongodb_automation_agent--group_id"></a>`group_id`
+
+Data type: `String`
+
+Something longer to fool the linter.
+
+##### <a name="-mongodb_automation_agent--api_key"></a>`api_key`
+
+Data type: `String`
+
+Something longer to fool the linter.
 
 ##### <a name="-mongodb_automation_agent--config_owner"></a>`config_owner`
 
 Data type: `String`
 
-
+Something longer to fool the linter.
 
 Default value: `'mongod'`
 
@@ -64,7 +75,7 @@ Default value: `'mongod'`
 
 Data type: `String`
 
-
+Something longer to fool the linter.
 
 Default value: `'mongod'`
 
@@ -72,7 +83,7 @@ Default value: `'mongod'`
 
 Data type: `Stdlib::Filemode`
 
-
+Something longer to fool the linter.
 
 Default value: `'0600'`
 
@@ -80,7 +91,7 @@ Default value: `'0600'`
 
 Data type: `Stdlib::Httpurl`
 
-
+Something longer to fool the linter.
 
 Default value: `'https://api-agents.mongodb.com'`
 
@@ -88,7 +99,7 @@ Default value: `'https://api-agents.mongodb.com'`
 
 Data type: `Stdlib::Absolutepath`
 
-
+Something longer to fool the linter.
 
 Default value: `'/var/log/mongodb-mms-automation/automation-agent.log'`
 
@@ -96,7 +107,7 @@ Default value: `'/var/log/mongodb-mms-automation/automation-agent.log'`
 
 Data type: `Stdlib::Absolutepath`
 
-
+Something longer to fool the linter.
 
 Default value: `'/var/lib/mongodb-mms-automation/mms-cluster-config-backup.json'`
 
@@ -104,7 +115,7 @@ Default value: `'/var/lib/mongodb-mms-automation/mms-cluster-config-backup.json'
 
 Data type: `Enum['DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL']`
 
-
+Something longer to fool the linter.
 
 Default value: `'INFO'`
 
@@ -112,7 +123,7 @@ Default value: `'INFO'`
 
 Data type: `Integer`
 
-
+Something longer to fool the linter.
 
 Default value: `10`
 
@@ -120,7 +131,7 @@ Default value: `10`
 
 Data type: `Integer`
 
-
+Something longer to fool the linter.
 
 Default value: `268435456`
 
@@ -128,7 +139,23 @@ Default value: `268435456`
 
 Data type: `Stdlib::Ensure::Package`
 
-
+Something longer to fool the linter.
 
 Default value: `'installed'`
+
+##### <a name="-mongodb_automation_agent--genkey_file_contents"></a>`genkey_file_contents`
+
+Data type: `Optional[String]`
+
+Something longer to fool the linter.
+
+Default value: `undef`
+
+##### <a name="-mongodb_automation_agent--mongodb_mms_home"></a>`mongodb_mms_home`
+
+Data type: `Stdlib::Absolutepath`
+
+Path to the mongodb-mms configuration files.
+
+Default value: `'/etc/mongodb-mms'`
 
