@@ -78,7 +78,7 @@ class mongodb_automation_agent (
     path    => "${mongodb_mms_home}/gen.key",
     owner   => $config_owner,
     group   => $config_group,
-    mode    => '0600',
+    mode    => '0400',
     # notify service mongodb?
     require => Package[$package_name],
   }
