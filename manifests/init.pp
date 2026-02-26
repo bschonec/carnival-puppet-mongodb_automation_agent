@@ -1,9 +1,35 @@
 # Installs the MongoDB automation agent.
+# @param package_name
+#   TODO
+# @param group_id
+#   TODO
+# @param api_key
+#   TODO
+# @param config_owner
+#   TODO
+# @param config_group
+#   TODO
+# @param config_mode
+#   TODO
+# @param base_url
+#   TODO
+# @param log_file
+#   TODO
+# @param config_backup
+#   TODO
+# @param log_level
+#   TODO
+# @param max_log_files
+#   TODO
+# @param max_log_file_size
+#   TODO
+# @param package_ensure
+#   TODO
 
 class mongodb_automation_agent (
-  String $package_name = 'mongodb-mms-automation-agent-manager',
   String $group_id,
   String $api_key,
+  String $package_name = 'mongodb-mms-automation-agent-manager',
   String $config_owner = 'mongod',
   String $config_group = 'mongod',
   Stdlib::Filemode $config_mode = '0600',
@@ -13,8 +39,8 @@ class mongodb_automation_agent (
   Enum['DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL'] $log_level = 'INFO',
   Integer $max_log_files = 10,
   Integer $max_log_file_size = 268435456,
+  Stdlib::Ensure::Package $package_ensure = 'installed'
 ) {
-
   # Typically, the package isn't signed so we need to stop the GPG check.
   package { $package_name:
     ensure          => $package_ensure,
@@ -31,5 +57,4 @@ class mongodb_automation_agent (
     content => template('mongodb_automation_agent/automation-agents.config.erb'),
     require => Package[$package_name],
   }
-
 }
