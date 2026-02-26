@@ -33,14 +33,14 @@
 #   Something longer to fool the linter.
 # @param package_ensure
 #   Something longer to fool the linter.
-# @param genkey_file_contents
+# @param genkey_file_content
 #   Something longer to fool the linter.
 # @param mongodb_mms_home
 #   Path to the mongodb-mms configuration files.
 class mongodb_automation_agent (
   String $group_id,
   String $api_key,
-  Optional[String] $genkey_file_contents = undef,
+  Optional[String] $genkey_file_content = undef,
   String $package_name = 'mongodb-mms-automation-agent-manager',
   String $config_owner = 'mongod',
   String $config_group = 'mongod',
@@ -72,6 +72,13 @@ class mongodb_automation_agent (
     require => Package[$package_name],
   }
 
+  # If we don't specify $genkey_file_content then ensure the file properties
+  # but don't manage its contents.
+  $file_content = $genkey_file_content ? {
+    undef   => undef,
+    default => { content => $genkey_file_content },
+  }
+
   # Mongodb-mms cluster key
   file { 'gen_key':
     ensure  => 'file',
@@ -79,6 +86,7 @@ class mongodb_automation_agent (
     owner   => $config_owner,
     group   => $config_group,
     mode    => '0400',
+    content => $file_content,
     # notify service mongodb?
     require => Package[$package_name],
   }

@@ -40,7 +40,7 @@ The following parameters are available in the `mongodb_automation_agent` class:
 * [`max_log_files`](#-mongodb_automation_agent--max_log_files)
 * [`max_log_file_size`](#-mongodb_automation_agent--max_log_file_size)
 * [`package_ensure`](#-mongodb_automation_agent--package_ensure)
-* [`genkey_file_contents`](#-mongodb_automation_agent--genkey_file_contents)
+* [`genkey_file_content`](#-mongodb_automation_agent--genkey_file_content)
 * [`mongodb_mms_home`](#-mongodb_automation_agent--mongodb_mms_home)
 
 ##### <a name="-mongodb_automation_agent--package_name"></a>`package_name`
@@ -143,7 +143,7 @@ Something longer to fool the linter.
 
 Default value: `'installed'`
 
-##### <a name="-mongodb_automation_agent--genkey_file_contents"></a>`genkey_file_contents`
+##### <a name="-mongodb_automation_agent--genkey_file_content"></a>`genkey_file_content`
 
 Data type: `Optional[String]`
 

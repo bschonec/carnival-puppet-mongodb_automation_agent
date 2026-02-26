@@ -9,7 +9,7 @@ describe 'mongodb_automation_agent', type: :class do
       let(:params) do
         {
           group_id: '12345',
-          api_key: 'ABCDefgh1234'
+          api_key: 'ABCDefgh1234',
         }
       end
 
@@ -34,7 +34,7 @@ describe 'mongodb_automation_agent', type: :class do
             path: '/etc/mongodb-mms/gen.key',
             owner: 'mongod',
             group: 'mongod',
-            mode: '0600'
+            mode: '0400'
           )
 
           is_expected.to contain_file('mongo_agent_config').with_content(/mmsGroupId=12345/)
@@ -68,7 +68,8 @@ describe 'mongodb_automation_agent', type: :class do
             log_level: 'DEBUG',
             max_log_files: 99,
             max_log_file_size: 123456,
-            package_ensure: 'absent'
+            package_ensure: 'absent',
+            genkey_file_content: 'Hello, world'
           }
         end
 
@@ -76,6 +77,8 @@ describe 'mongodb_automation_agent', type: :class do
           is_expected.to contain_package('mongodb-mms-automation-agent-manager').with(
             ensure: 'absent'
           )
+
+          is_expected.to contain_file('gen_key').with_content(/Hello, world/)
 
           is_expected.to contain_file('mongo_agent_config').with(
             owner: 'nobody',
