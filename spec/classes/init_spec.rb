@@ -16,7 +16,6 @@ describe 'mongodb_automation_agent', type: :class do
       it { is_expected.to compile }
 
       context 'With default parameters' do
-
         it {
           is_expected.to contain_package('mongodb-mms-automation-agent-manager').with(
             ensure: 'installed',
@@ -37,23 +36,24 @@ describe 'mongodb_automation_agent', type: :class do
             mode: '0400'
           )
 
-          is_expected.to contain_file('mongo_agent_config').with_content(/mmsGroupId=12345/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/mmsApiKey=ABCDefgh1234/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/mmsBaseUrl=https:\/\/api-agents\.mongodb\.com/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/logFile=\/var\/log\/mongodb\-mms\-automation\/automation-agent\.log/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/mmsConfigBackup=\/var\/lib\/mongodb\-mms\-automation\/mms\-cluster\-config\-backup\.json/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/logLevel=INFO/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/maxLogFiles=10/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/maxLogFileSize=268435456/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/httpProxy=/)
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{mmsGroupId=12345})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{mmsApiKey=ABCDefgh1234})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{mmsBaseUrl=https://api-agents\.mongodb\.com})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{logFile=/var/log/mongodb-mms-automation/automation-agent\.log})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{mmsConfigBackup=/var/lib/mongodb-mms-automation/mms-cluster-config-backup\.json})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{logLevel=INFO})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{maxLogFiles=10})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{maxLogFileSize=268435456})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{httpProxy=})
 
           is_expected.to contain_service('mongodb-mms-automation-agent').with(
             ensure: 'running',
             enable: true,
-            require: 'File[mongo_agent_config]',
+            require: 'File[mongo_agent_config]'
           )
         }
       end
+
       context 'With non-default parameters' do
         let(:params) do
           {
@@ -67,7 +67,7 @@ describe 'mongodb_automation_agent', type: :class do
             config_backup: '/var/lib/nothing.json',
             log_level: 'DEBUG',
             max_log_files: 99,
-            max_log_file_size: 123456,
+            max_log_file_size: 123_456,
             package_ensure: 'absent',
             genkey_file_content: 'Hello, world'
           }
@@ -78,7 +78,7 @@ describe 'mongodb_automation_agent', type: :class do
             ensure: 'absent'
           )
 
-          is_expected.to contain_file('gen_key').with_content(/Hello, world/)
+          is_expected.to contain_file('gen_key').with_content(%r{Hello, world})
 
           is_expected.to contain_file('mongo_agent_config').with(
             owner: 'nobody',
@@ -86,20 +86,20 @@ describe 'mongodb_automation_agent', type: :class do
             mode: '0775'
           )
 
-          is_expected.to contain_file('mongo_agent_config').with_content(/mmsGroupId=abcde/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/mmsApiKey=nonDefault/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/mmsBaseUrl=https:\/\/www\.example\.com/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/logFile=\/var\/tmp\/nothing\.log/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/mmsConfigBackup=\/var\/lib\/nothing\.json/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/logLevel=DEBUG/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/maxLogFiles=99/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/maxLogFileSize=123456/)
-          is_expected.to contain_file('mongo_agent_config').with_content(/httpProxy=/)
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{mmsGroupId=abcde})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{mmsApiKey=nonDefault})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{mmsBaseUrl=https://www\.example\.com})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{logFile=/var/tmp/nothing\.log})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{mmsConfigBackup=/var/lib/nothing\.json})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{logLevel=DEBUG})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{maxLogFiles=99})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{maxLogFileSize=123456})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{httpProxy=})
 
           is_expected.to contain_service('mongodb-mms-automation-agent').with(
             ensure: 'running',
             enable: true,
-            require: 'File[mongo_agent_config]',
+            require: 'File[mongo_agent_config]'
           )
         }
       end
