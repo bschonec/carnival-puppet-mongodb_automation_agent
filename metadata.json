@@ -1,16 +1,16 @@
 {
-  "name": "control-repo",
-  "version": "0.1.0",
+  "name": "puppet-manhattan",
+  "version": "0.0.50",
   "author": "Brian Schonecker",
-  "summary": "Control repository for building all of the Puppet module dependencies.",
+  "summary": "",
   "license": "Apache-2.0",
-  "source": "https://nfiv-schon-02d.nfii.com/SchoneckerB/control-repo.git",
+  "source": "",
   "dependencies": [
 
   ],
   "operatingsystem_support": [
     {
-      "operatingsystem": "RedHat",
+      "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [
         "7",
         "8",
@@ -20,11 +20,36 @@
   ],
   "requirements": [
     {
+      "name": "puppet-selinux",
+      "version_requirement": ">= 5.0.0"
+    },
+    {
       "name": "puppet",
-     "version_requirement": ">= 8.0.0 < 10.0.0"
+      "version_requirement": ">= 8.0.0 < 9.0.0"
+    },
+    {
+      "name": "pltraining-dirtree",
+      "version_requirement": ">= 0.3.0"
+    },
+    {
+      "name": "puppet-posix_acl",
+      "version_requirement": "= 3.1.0"
+    },
+    {
+      "name": "puppetlabs-concat",
+      "version_requirement": ">= 9.0.2"
+    },
+    {
+      "name": "puppet-alternatives",
+      "version_requirement": ">= 6.0.0"
+    },
+    {
+      "name": "puppetlabs-accounts",
+      "version_requirement": ">= 7.0.0"
+    },
+    {
+      "name": "puppetlabs-host_core",
+      "version_requirement": ">= 1.1.0"
     }
-  ],
-  "pdk-version": "2.6.1",
-  "template-url": "pdk-default#2.7.1",
-  "template-ref": "tags/2.7.1-0-g9a16c87"
+  ]
 }
