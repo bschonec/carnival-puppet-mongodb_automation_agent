@@ -30,8 +30,6 @@ The following parameters are available in the `mongodb_automation_agent` class:
 * [`package_name`](#-mongodb_automation_agent--package_name)
 * [`group_id`](#-mongodb_automation_agent--group_id)
 * [`api_key`](#-mongodb_automation_agent--api_key)
-* [`gen_key_config_owner`](#-mongodb_automation_agent--gen_key_config_owner)
-* [`gen_key_config_group`](#-mongodb_automation_agent--gen_key_config_group)
 * [`config_owner`](#-mongodb_automation_agent--config_owner)
 * [`config_group`](#-mongodb_automation_agent--config_group)
 * [`config_mode`](#-mongodb_automation_agent--config_mode)
@@ -72,22 +70,6 @@ Something longer to fool the linter.
 Data type: `String`
 
 Something longer to fool the linter.
-
-##### <a name="-mongodb_automation_agent--gen_key_config_owner"></a>`gen_key_config_owner`
-
-Data type: `String`
-
-Something longer to fool the linter.
-
-Default value: `'mongodb-mms'`
-
-##### <a name="-mongodb_automation_agent--gen_key_config_group"></a>`gen_key_config_group`
-
-Data type: `String`
-
-
-
-Default value: `'mongodb-mms'`
 
 ##### <a name="-mongodb_automation_agent--config_owner"></a>`config_owner`
 
