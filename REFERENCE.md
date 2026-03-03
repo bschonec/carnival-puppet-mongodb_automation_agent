@@ -44,6 +44,8 @@ The following parameters are available in the `mongodb_automation_agent` class:
 * [`max_uncompressed_log_files`](#-mongodb_automation_agent--max_uncompressed_log_files)
 * [`max_log_file_duration_hrs`](#-mongodb_automation_agent--max_log_file_duration_hrs)
 * [`package_ensure`](#-mongodb_automation_agent--package_ensure)
+* [`enable_local_configuration_server`](#-mongodb_automation_agent--enable_local_configuration_server)
+* [`local_configuration_server_port`](#-mongodb_automation_agent--local_configuration_server_port)
 * [`genkey_file_content`](#-mongodb_automation_agent--genkey_file_content)
 * [`mongodb_mms_home`](#-mongodb_automation_agent--mongodb_mms_home)
 * [`http_proxy`](#-mongodb_automation_agent--http_proxy)
@@ -182,6 +184,22 @@ Data type: `Stdlib::Ensure::Package`
 Something longer to fool the linter.
 
 Default value: `'installed'`
+
+##### <a name="-mongodb_automation_agent--enable_local_configuration_server"></a>`enable_local_configuration_server`
+
+Data type: `Boolean`
+
+Something longer to fool the linter.
+
+Default value: `false`
+
+##### <a name="-mongodb_automation_agent--local_configuration_server_port"></a>`local_configuration_server_port`
+
+Data type: `Integer`
+
+Something longer to fool the linter.
+
+Default value: `20128`
 
 ##### <a name="-mongodb_automation_agent--genkey_file_content"></a>`genkey_file_content`
 

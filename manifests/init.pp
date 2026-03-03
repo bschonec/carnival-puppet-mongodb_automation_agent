@@ -40,6 +40,10 @@
 #   Something longer to fool the linter.
 # @param package_ensure
 #   Something longer to fool the linter.
+# @param enable_local_configuration_server
+#   Something longer to fool the linter.
+# @param local_configuration_server_port
+#   Something longer to fool the linter.
 # @param genkey_file_content
 #   Something longer to fool the linter.
 # @param mongodb_mms_home
@@ -72,7 +76,9 @@ class mongodb_automation_agent (
   Integer $max_log_file_duration_hrs = 24,
   Integer $max_uncompressed_log_files = 2,
   Integer $dial_timeout_seconds = 40,
+  Integer $local_configuration_server_port = 20128,
   Integer $server_selection_timeout_seconds = 10,
+  Boolean $enable_local_configuration_server = false,
   Stdlib::Ensure::Package $package_ensure = 'installed'
 ) {
   # Typically, the package isn't signed so we need to stop the GPG check.

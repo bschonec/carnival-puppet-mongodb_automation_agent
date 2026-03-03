@@ -44,7 +44,14 @@ describe 'mongodb_automation_agent', type: :class do
           is_expected.to contain_file('mongo_agent_config').with_content(%r{logLevel=INFO})
           is_expected.to contain_file('mongo_agent_config').with_content(%r{maxLogFiles=10})
           is_expected.to contain_file('mongo_agent_config').with_content(%r{maxLogFileSize=268435456})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{maxLogFileDurationHrs=24})
           is_expected.to contain_file('mongo_agent_config').without_content(%r{httpProxy=})
+          is_expected.to contain_file('mongo_agent_config').without_content(%r{httpsCAFile=})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{maxUncompressedLogFiles=2})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{dialTimeoutSeconds=40})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{serverSelectionTimeoutSeconds=10})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{enableLocalConfigurationServer=false})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{localConfigurationServerPort=20128})
 
           is_expected.to contain_service('mongodb-mms-automation-agent').with(
             ensure: 'running',
@@ -70,7 +77,14 @@ describe 'mongodb_automation_agent', type: :class do
             max_log_file_size: 123_456,
             package_ensure: 'absent',
             genkey_file_content: 'Hello, world',
-            http_proxy: 'https://proxy.example.com:8080'
+            http_proxy: 'https://proxy.example.com:8080',
+            max_log_file_duration_hrs: 1,
+            max_uncompressed_log_files: 100,
+            dial_timeout_seconds: 100,
+            https_ca_file: '/etc/pki/tls/certs/example.crt',
+            enable_local_configuration_server: true,
+            local_configuration_server_port: 1234,
+            server_selection_timeout_seconds: 100
           }
         end
 
@@ -95,7 +109,14 @@ describe 'mongodb_automation_agent', type: :class do
           is_expected.to contain_file('mongo_agent_config').with_content(%r{logLevel=DEBUG})
           is_expected.to contain_file('mongo_agent_config').with_content(%r{maxLogFiles=99})
           is_expected.to contain_file('mongo_agent_config').with_content(%r{maxLogFileSize=123456})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{maxLogFileDurationHrs=1})
           is_expected.to contain_file('mongo_agent_config').with_content(%r{httpProxy=https://proxy.example.com:8080})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{httpsCAFile=/etc/pki/tls/certs/example.crt})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{maxUncompressedLogFiles=10})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{dialTimeoutSeconds=100})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{serverSelectionTimeoutSeconds=100})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{enableLocalConfigurationServer=true})
+          is_expected.to contain_file('mongo_agent_config').with_content(%r{localConfigurationServerPort=1234})
 
           is_expected.to contain_service('mongodb-mms-automation-agent').with(
             ensure: 'running',

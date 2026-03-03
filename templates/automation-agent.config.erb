@@ -76,5 +76,13 @@ dialTimeoutSeconds=<%= @dial_timeout_seconds %>
 #
 serverSelectionTimeoutSeconds=<%= @server_selection_timeout_seconds %> 
 
+# Specifies whether the MongoDB Agent stores MongoDB process configuration files on disk or cached in memory.
+#
+enableLocalConfigurationServer=<%= @enable_local_configuration_server %> 
+
+# Specifies the port to serve the MongoDB process configuration to when using the local configuration server.
+#
+localConfigurationServerPort=<%= @local_configuration_server_port %> 
+
 # For additional optional settings, please see
 # https://docs.cloud.mongodb.com/reference/automation-agent/
