@@ -1,15 +1,29 @@
 {
-  "name": "carnival-mongodb_automation_agent",
+  "name": "puppet-mongodb_automation_agent",
   "version": "0.1.0",
-  "author": "Carnival Mobile",
-  "summary": "Installs the MongoDB Cloud Manager automation agent",
+  "author": "Brian Schonecker",
+  "summary": "Installs the MongoDB Cloud Manager automation agent onto servers",
   "license": "Apache-2.0",
-  "source": "https://github.com/carnivalmobile/carnival-puppet-mongodb_automation_agent",
-  "project_page": "https://github.com/carnivalmobile/carnival-puppet-mongodb_automation_agent",
-  "issues_url": "https://github.com/carnivalmobile/carnival-puppet-mongodb_automation_agent/issues",
+  "source": "https://github.com/bschonec/carnival-puppet-mongodb_automation_agent.git",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 6.0.0 < 9.0.0"
+    }
   ],
-  "data_provider": null
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "8",
+        "9"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 8.0.0 < 10.0.0"
+    }
+  ]
 }
-

@@ -1,0 +1,88 @@
+# This file is managed by Puppet.
+# Do not edit!
+# reference: https://www.mongodb.com/docs/ops-manager/current/reference/mongodb-agent-settings/
+
+# REQUIRED
+# Enter your Group ID - It can be found at https://cloud.mongodb.com/settings/group
+#
+mmsGroupId=<%= @group_id %>
+
+#
+# REQUIRED
+# Enter your API key - It can be found at https://cloud.mongodb.com/settings/group
+#
+mmsApiKey=<%= @api_key %>
+
+
+#
+# Base url of the MMS web server.
+#
+mmsBaseUrl=<%= @base_url %>
+
+#
+# Path to log file
+#
+logFile=<%= @log_file %>
+
+#
+# Path to backup cluster config to
+#
+mmsConfigBackup=<%= @config_backup %>
+
+#
+# Lowest log level to log.  Can be (in order): DEBUG, ROUTINE, INFO, WARN, ERROR, DOOM
+#
+logLevel=<%= @log_level %>
+
+#
+# Maximum number of rotated log files
+#
+maxLogFiles=<%= @max_log_files %>
+
+#
+# Maximum size in bytes of a log file (before rotating)
+#
+maxLogFileSize=<%= @max_log_file_size %>
+
+#
+# Specifies the URL of an HTTP proxy server the MongoDB Agent can use.
+#
+<% if @http_proxy && @http_proxy != '' -%>
+httpProxy=<%= @http_proxy %>
+<% end -%>
+
+#
+# Specifies the absolute path that contains the trusted Certificate Authority certificates in PEM format.
+#
+<% if @https_ca_file && @https_ca_file != '' -%>
+httpsCAFile=<%= @https_ca_file %>
+<% end -%>
+
+#
+# Specifies the number of hours after which the logs are rotated.
+#
+maxLogFileDurationHrs=<%= @max_log_file_duration_hrs %> 
+#
+
+# Specifies the maximum number of rotated log files to keep uncompressed.
+#
+maxUncompressedLogFiles=<%= @max_uncompressed_log_files %> 
+
+# Specifies the number of seconds to wait before a connection times out.
+#
+dialTimeoutSeconds=<%= @dial_timeout_seconds %> 
+
+# Specifies the number of seconds the MongoDB Agent waits before it stops trying to establish a connection to a MongoDB process.
+#
+serverSelectionTimeoutSeconds=<%= @server_selection_timeout_seconds %> 
+
+# Specifies whether the MongoDB Agent stores MongoDB process configuration files on disk or cached in memory.
+#
+enableLocalConfigurationServer=<%= @enable_local_configuration_server %> 
+
+# Specifies the port to serve the MongoDB process configuration to when using the local configuration server.
+#
+localConfigurationServerPort=<%= @local_configuration_server_port %> 
+
+# For additional optional settings, please see
+# https://docs.cloud.mongodb.com/reference/automation-agent/

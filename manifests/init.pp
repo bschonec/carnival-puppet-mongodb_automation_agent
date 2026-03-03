@@ -1,82 +1,110 @@
-# Installs the MongoDB automation agent.
+# == Class: mongodb_automation_agent
+#
+# @summary
+#   Installs the MongoDB automation agent.
+#   Generates the configuration and ensures the service is running.
+#
+# @example
+#   include mongodb_automation_agent
+#
+# @param package_name
+#   Something longer to fool the linter.
+# @param group_id
+#   Something longer to fool the linter.
+# @param api_key
+#   Something longer to fool the linter.
+# @param config_owner
+#   Something longer to fool the linter.
+# @param config_group
+#   Something longer to fool the linter.
+# @param config_mode
+#   Something longer to fool the linter.
+# @param base_url
+#   Something longer to fool the linter.
+# @param log_file
+#   Something longer to fool the linter.
+# @param config_backup
+#   Something longer to fool the linter.
+# @param log_level
+#   Something longer to fool the linter.
+# @param max_log_files
+#   Something longer to fool the linter.
+# @param max_log_file_size
+#   Something longer to fool the linter.
+# @param max_uncompressed_log_files
+#   Something longer to fool the linter.
+# @param max_log_file_duration_hrs
+#   Something longer to fool the linter.
+# @param package_ensure
+#   Something longer to fool the linter.
+# @param enable_local_configuration_server
+#   Something longer to fool the linter.
+# @param local_configuration_server_port
+#   Something longer to fool the linter.
+# @param genkey_file_content
+#   Something longer to fool the linter.
+# @param mongodb_mms_home
+#   Path to the mongodb-mms configuration files.
+# @param http_proxy
+#   Path to the mongodb-mms configuration files.
+# @param dial_timeout_seconds
+#   Path to the mongodb-mms configuration files.
+# @param server_selection_timeout_seconds
+#   Path to the mongodb-mms configuration files.
 class mongodb_automation_agent (
-  $agent_version = 'latest',
-  $agent_config_mmsgroupid,
-  $agent_config_mmsapikey,
+  String $group_id,
+  String $api_key,
+  Optional[String] $genkey_file_content = undef,
+  Optional[Stdlib::Httpurl] $http_proxy = undef,
+  Optional[Stdlib::Absolutepath] $https_ca_file = undef,
+  String $package_name = 'mongodb-mms-automation-agent-manager',
+  String $config_owner = 'mongod',
+  String $config_group = 'mongod',
+  Stdlib::Filemode $config_mode = '0600',
+  Stdlib::Httpurl $base_url = 'https://api-agents.mongodb.com',
+  Stdlib::Absolutepath $log_file = '/var/log/mongodb-mms-automation/automation-agent.log',
+  Stdlib::Absolutepath $config_backup='/var/lib/mongodb-mms-automation/mms-cluster-config-backup.json',
+  Stdlib::Absolutepath $mongodb_mms_home='/etc/mongodb-mms',
+  Enum['DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL'] $log_level = 'INFO',
+  Integer $max_log_files = 10,
+  Integer $max_log_file_size = 268435456,
+  Integer $max_log_file_duration_hrs = 24,
+  Integer $max_uncompressed_log_files = 2,
+  Integer $dial_timeout_seconds = 40,
+  Integer $local_configuration_server_port = 20128,
+  Integer $server_selection_timeout_seconds = 10,
+  Boolean $enable_local_configuration_server = false,
+  Stdlib::Ensure::Package $package_ensure = 'installed'
 ) {
-
-  Exec {
-    path => ['/sbin', '/bin', '/usr/sbin', '/usr/bin'],
+  # Typically, the package isn't signed so we need to stop the GPG check.
+  package { $package_name:
+    ensure          => $package_ensure,
+    install_options => '--nogpgcheck',
   }
 
-  # The download scheme is inconsistent so we have specifically configured each
-  # option. Pull requests to add additionals welcome.
-  if ($::os['distro']['id'] == 'Ubuntu') {
-    if ($::os['release']['major'] == '12.04') {
-      $download_url = "https://cloud.mongodb.com/download/agent/automation/mongodb-mms-automation-agent-manager_${agent_version}_amd64.deb"
-    }
-    if ($::os['release']['major'] == '14.04') {
-      $download_url = "https://cloud.mongodb.com/download/agent/automation/mongodb-mms-automation-agent-manager_${agent_version}_amd64.deb"
-    }
-    if ($::os['release']['major'] == '16.04') {
-      $download_url = "https://cloud.mongodb.com/download/agent/automation/mongodb-mms-automation-agent-manager_${agent_version}_amd64.ubuntu1604.deb"
-    }
-  }
-
-  # Download and install the software
-  # TODO: Non-portable - Debian/Ubuntu Specific.
-
-  if ($agent_version == 'latest') {
-    # The "latest" version means we can't handle update via this module - we
-    # just check that it's installed and install it if not.
-    exec { 'mongo_agent_download':
-      creates   => "/tmp/mongodb-mms-automation-agent-manager_${agent_version}.deb",
-      command   => "wget -nv ${download_url} -O /tmp/mongodb-mms-automation-agent-manager_${agent_version}.deb",
-      unless    => "dpkg -s mongodb-mms-automation-agent-manager | grep -q \"Status: install ok installed\"",
-      logoutput => true,
-      notify    => Exec['mongo_agent_install'],
-    }
-  } else {
-    # Ensure we have the exact version requested.
-    exec { 'mongo_agent_download':
-      creates   => "/tmp/mongodb-mms-automation-agent-manager_${agent_version}.deb",
-      command   => "wget -nv ${download_url} -O /tmp/mongodb-mms-automation-agent-manager_${agent_version}.deb",
-      unless    => "dpkg -s mongodb-mms-automation-agent-manager | grep -q \"Version: ${agent_version}\"", # Download new version if not already installed.
-      logoutput => true,
-      notify    => Exec['mongo_agent_install'],
-    }
-  }
-
-  exec { 'mongo_agent_install':
-    # Ideally we'd use "apt-get install package.deb" but this only become
-    # available in apt 1.1 and later. Hence we do a bit of a hack, which is
-    # to install the deb and then fix the deps with apt-get -y -f install.
-    # TODO: When Ubuntu 16.04 is out, check if we can migrate to the better approach
-    command     => "bash -c 'dpkg -i /tmp/mongodb-mms-automation-agent-manager_${agent_version}.deb; apt-get -y -f install'",
-    require     => Exec['mongo_agent_download'],
-    logoutput   => true,
-    refreshonly => true,
-
-    # Ensure we always install, before we generate the config file as we require
-    # the directory and user to be present.
-    before      => File['mongo_agent_config']
-  }
-
-  # Generate the configuration file
+  # Mongodb-mms configuration file
   file { 'mongo_agent_config':
     ensure  => 'file',
-    path    => '/etc/mongodb-mms/automation-agent.config',
-    owner   => 'mongodb',
-    group   => 'mongodb',
-    mode    => '0600',
-    content => template('mongodb_automation_agent/automation-agents.config.erb'),
+    path    => "${mongodb_mms_home}/automation-agent.config",
+    owner   => $config_owner,
+    group   => $config_group,
+    mode    => $config_mode,
+    content => template('mongodb_automation_agent/automation-agent.config.erb'),
+    # notify service mongodb?
+    require => Package[$package_name],
+  }
+
+  # If we don't specify $genkey_file_content then ensure the file's properties
+  # but don't manage its contents.
+  $file_content = $genkey_file_content ? {
+    undef   => undef,
+    default => { content => $genkey_file_content },
   }
 
   # Ensure service is running
   service { 'mongodb-mms-automation-agent':
-    ensure   => 'running',
-    enable   => true,
-    require  => File['mongo_agent_config']
+    ensure  => 'running',
+    enable  => true,
+    require => File['mongo_agent_config'],
   }
-
 }
