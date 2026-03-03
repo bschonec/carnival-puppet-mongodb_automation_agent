@@ -34,16 +34,28 @@
 #   Something longer to fool the linter.
 # @param max_log_file_size
 #   Something longer to fool the linter.
+# @param max_uncompressed_log_files
+#   Something longer to fool the linter.
+# @param max_log_file_duration_hrs
+#   Something longer to fool the linter.
 # @param package_ensure
 #   Something longer to fool the linter.
 # @param genkey_file_content
 #   Something longer to fool the linter.
 # @param mongodb_mms_home
 #   Path to the mongodb-mms configuration files.
+# @param http_proxy
+#   Path to the mongodb-mms configuration files.
+# @param dial_timeout_seconds
+#   Path to the mongodb-mms configuration files.
+# @param server_selection_timeout_seconds
+#   Path to the mongodb-mms configuration files.
 class mongodb_automation_agent (
   String $group_id,
   String $api_key,
   Optional[String] $genkey_file_content = undef,
+  Optional[Stdlib::Httpurl] $http_proxy = undef,
+  Optional[Stdlib::Absolutepath] $https_ca_file = undef,
   String $package_name = 'mongodb-mms-automation-agent-manager',
   String $config_owner = 'mongod',
   String $config_group = 'mongod',
@@ -57,6 +69,10 @@ class mongodb_automation_agent (
   Enum['DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL'] $log_level = 'INFO',
   Integer $max_log_files = 10,
   Integer $max_log_file_size = 268435456,
+  Integer $max_log_file_duration_hrs = 24,
+  Integer $max_uncompressed_log_files = 2,
+  Integer $dial_timeout_seconds = 40,
+  Integer $server_selection_timeout_seconds = 10,
   Stdlib::Ensure::Package $package_ensure = 'installed'
 ) {
   # Typically, the package isn't signed so we need to stop the GPG check.

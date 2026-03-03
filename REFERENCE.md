@@ -41,9 +41,15 @@ The following parameters are available in the `mongodb_automation_agent` class:
 * [`log_level`](#-mongodb_automation_agent--log_level)
 * [`max_log_files`](#-mongodb_automation_agent--max_log_files)
 * [`max_log_file_size`](#-mongodb_automation_agent--max_log_file_size)
+* [`max_uncompressed_log_files`](#-mongodb_automation_agent--max_uncompressed_log_files)
+* [`max_log_file_duration_hrs`](#-mongodb_automation_agent--max_log_file_duration_hrs)
 * [`package_ensure`](#-mongodb_automation_agent--package_ensure)
 * [`genkey_file_content`](#-mongodb_automation_agent--genkey_file_content)
 * [`mongodb_mms_home`](#-mongodb_automation_agent--mongodb_mms_home)
+* [`http_proxy`](#-mongodb_automation_agent--http_proxy)
+* [`dial_timeout_seconds`](#-mongodb_automation_agent--dial_timeout_seconds)
+* [`server_selection_timeout_seconds`](#-mongodb_automation_agent--server_selection_timeout_seconds)
+* [`https_ca_file`](#-mongodb_automation_agent--https_ca_file)
 
 ##### <a name="-mongodb_automation_agent--package_name"></a>`package_name`
 
@@ -153,6 +159,22 @@ Something longer to fool the linter.
 
 Default value: `268435456`
 
+##### <a name="-mongodb_automation_agent--max_uncompressed_log_files"></a>`max_uncompressed_log_files`
+
+Data type: `Integer`
+
+Something longer to fool the linter.
+
+Default value: `2`
+
+##### <a name="-mongodb_automation_agent--max_log_file_duration_hrs"></a>`max_log_file_duration_hrs`
+
+Data type: `Integer`
+
+Something longer to fool the linter.
+
+Default value: `24`
+
 ##### <a name="-mongodb_automation_agent--package_ensure"></a>`package_ensure`
 
 Data type: `Stdlib::Ensure::Package`
@@ -176,4 +198,36 @@ Data type: `Stdlib::Absolutepath`
 Path to the mongodb-mms configuration files.
 
 Default value: `'/etc/mongodb-mms'`
+
+##### <a name="-mongodb_automation_agent--http_proxy"></a>`http_proxy`
+
+Data type: `Optional[Stdlib::Httpurl]`
+
+Path to the mongodb-mms configuration files.
+
+Default value: `undef`
+
+##### <a name="-mongodb_automation_agent--dial_timeout_seconds"></a>`dial_timeout_seconds`
+
+Data type: `Integer`
+
+Path to the mongodb-mms configuration files.
+
+Default value: `40`
+
+##### <a name="-mongodb_automation_agent--server_selection_timeout_seconds"></a>`server_selection_timeout_seconds`
+
+Data type: `Integer`
+
+Path to the mongodb-mms configuration files.
+
+Default value: `10`
+
+##### <a name="-mongodb_automation_agent--https_ca_file"></a>`https_ca_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+
+
+Default value: `undef`
 

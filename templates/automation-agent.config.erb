@@ -1,5 +1,6 @@
 # This file is managed by Puppet.
 # Do not edit!
+# reference: https://www.mongodb.com/docs/ops-manager/current/reference/mongodb-agent-settings/
 
 # REQUIRED
 # Enter your Group ID - It can be found at https://cloud.mongodb.com/settings/group
@@ -44,9 +45,36 @@ maxLogFiles=<%= @max_log_files %>
 maxLogFileSize=<%= @max_log_file_size %>
 
 #
-# URL to proxy all HTTP requests through
+# Specifies the URL of an HTTP proxy server the MongoDB Agent can use.
 #
-#httpProxy=
+<% if @http_proxy && @http_proxy != '' -%>
+httpProxy=<%= @http_proxy %>
+<% end -%>
+
+#
+# Specifies the absolute path that contains the trusted Certificate Authority certificates in PEM format.
+#
+<% if @https_ca_file && @https_ca_file != '' -%>
+httpsCAFile=<%= @https_ca_file %>
+<% end -%>
+
+#
+# Specifies the number of hours after which the logs are rotated.
+#
+maxLogFileDurationHrs=<%= @max_log_file_duration_hrs %> 
+#
+
+# Specifies the maximum number of rotated log files to keep uncompressed.
+#
+maxUncompressedLogFiles=<%= @max_uncompressed_log_files %> 
+
+# Specifies the number of seconds to wait before a connection times out.
+#
+dialTimeoutSeconds=<%= @dial_timeout_seconds %> 
+
+# Specifies the number of seconds the MongoDB Agent waits before it stops trying to establish a connection to a MongoDB process.
+#
+serverSelectionTimeoutSeconds=<%= @server_selection_timeout_seconds %> 
 
 # For additional optional settings, please see
 # https://docs.cloud.mongodb.com/reference/automation-agent/
